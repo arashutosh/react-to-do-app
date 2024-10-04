@@ -22,6 +22,9 @@ app.post('/todo',async function(req, res){
 });
 app.post('/todos',async function(req, res){
     const getData = await todos.find({})
+    res.status(200).json({
+        getData
+    })
 });
 app.put('/compelete', async function(req, res){
     const todoId = req.body;

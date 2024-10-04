@@ -14,7 +14,8 @@ app.post('/todo',async function(req, res){
     }
     await todos.create({
         title: userBody.title,
-        description: userBody.description
+        description: userBody.description,
+        isCompleted: false
     })
     res.status(200).json({
         msg: "todo is created"
@@ -24,7 +25,7 @@ app.post('/todos',async function(req, res){
     const getData = await todos.find({})
     res.status(200).json({
         getData
-    })
+    }) 
 });
 app.put('/compelete', async function(req, res){
     const todoId = req.body;
@@ -36,7 +37,12 @@ app.put('/compelete', async function(req, res){
         return;
     }
     await todos.findOneAndUpdate({
+        _id: todoId
+    },{
         isCompleted: true
+    })
+    res.status(200).json({
+        msg: "todo marked as completed"
     })
 });
 app.listen(3000,()=>{
